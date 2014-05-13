@@ -31,14 +31,23 @@
     }
 
     function processGeoData(position) {
-      console.debug("got geo data", position);
-      GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading).addCallbacks(
+      console.log("Got new GEO data", position);
+      GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
+      GetUpdatedUser();
+    }
+
+    function GetUpdatedUser() {
+      console.log("GetUpdatedUser#call");
+      GpsGate.Server.Hackathon.GetUpdatedUsers().addCallbacks(
         function(response) {
-          console.debug("Update done!", response)
-        }
+          console.log("GetUpdatedUser#response", response);
+          var ul = jQuery('#users');
+          for (var i = 0; i < response.users.length; i++) {
+            ul.append('<li>' + response.users[i].name + '</li>');
+          }
+        },
         function(error) { }
       );
-
     }
 
   </script>
