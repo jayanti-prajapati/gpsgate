@@ -64,7 +64,7 @@
           var response = response.filter(function(element) { return element.name !== "GpsGate";})
 
           img.empty();
-          img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+');-webkit-transform:rotate('+response[0].heading+'deg)"/>')
+          img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+'); -webkit-transform:rotate('+response[0].heading+'deg)"/>')
           );
 
           var ul = jQuery('#locations');
@@ -75,8 +75,7 @@
               jQuery('<li>')
                 .append(jQuery('<p>').html(response[i].name))
                 .append(jQuery('<p>').html(response[i].distance + "m"))
-                .append(jQuery('<p>').html(response[i].heading))
-                .append(jQuery('<img id="small-compass" src="arrow.png" style="-ms-transform:rotate('+response[i].heading+');-webkit-transform:rotate('+response[i].heading+'deg)"/>'))
+                .append(jQuery('<img id="small-compass" src="arrow.png" style="-ms-transform:rotate('+response[i].heading+'); -webkit-transform:rotate('+response[i].heading+'deg)"/>'))
             )
           }
           setTimeout(UpdateNearbyLocations, 1000);
@@ -101,11 +100,9 @@
   </script>
 </head>
 <body>
-
-
-    <h2>Locations</h2>
+  <div id="container">
     <div id="compass"></div>
-
     <ul id="locations"></ul>
+  </div>
 </body>
 </html>
