@@ -5,8 +5,7 @@
   <!-- Include core bootstrap -->
   <script type="text/javascript" src="http://studs.gpsgate.com/Services/Core.ashx?xss2=true&deps=true"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
-<link rel="stylesheet" type="text/css" href="style/main.css">
+  <link rel="stylesheet" type="text/css" href="style/main.css">
   <!-- Google maps API -->
   <!-- https://developers.google.com/maps/documentation/javascript/tutorial -->
   <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true"></script> -->
@@ -27,10 +26,7 @@
   <script type="text/javascript">
 
 
-    function UserCtrl($scope) {
-      $scope.users = []
-
-          function start() {
+    function start() {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(processGeoData, null, { enableHighAccuracy: true });
       }
@@ -56,14 +52,7 @@
       );
     }
 
-
-
-    }
-
-
-
-
-
+    start();
 
   </script>
 
