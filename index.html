@@ -36,17 +36,6 @@
       var position = data.coords;
       console.log("Got new GEO data", position);
       GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
-      jQuery('#user-heading').html(position.heading);
-      jQuery('#user-speed').html(position.speed + 'm/s');
-      jQuery('#user-lat').html(position.latitude);
-      jQuery('#user-lng').html(position.longitude);
-    }
-
-    var angle = 0;
-    var rotateCompass = function(newAngle){
-      $("#compass").rotate(-angle);
-      $("#compass").rotate(newAngle);
-      angle = newAngle;
     }
 
     function doLogin() {
@@ -101,19 +90,8 @@
       start();
 
       // Get some users
-      GpsGate.Server.Hackathon.GetUpdatedUsers().addCallbacks(
-        function(response) {
-          var ul = jQuery('#users');
-          for (var i = 0; i < response.users.length; i++) {
-            ul.append('<li>' + response.users[i].name + '</li>');
-          }
-        },
-        function(error) { }
-      );
 
       UpdateNearbyLocations();
-
-
 
 
     }
