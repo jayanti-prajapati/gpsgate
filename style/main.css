@@ -14,8 +14,8 @@ body {
 }
 
 #small-compass{
-  width:40px;
-  height:40px;
+  width:60px;
+  height:60px;
 }
 
 #locations {
@@ -26,11 +26,10 @@ body {
 }
 #locations p, img {
   float: left;
-  margin-right: 10px;
-  font-size: 16px;
-  line-height: 20px;
+  margin-right: 20px;
+  font-size: 25px;
 }
 
 #locations p {
-  width: 70px;
+  width: 120px;
 }

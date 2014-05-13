@@ -64,9 +64,9 @@
           var response = response.filter(function(element) { return element.name !== "GpsGate";})
           response.sort(function(a, b) { return a.distance - b.distance; });
 
-          img.empty();
-          img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+'); -webkit-transform:rotate('+response[0].heading+'deg)"/>')
-          );
+          // img.empty();
+          // img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+'); -webkit-transform:rotate('+response[0].heading+'deg)"/>')
+          // );
 
           var ul = jQuery('#locations');
           ul.empty()
