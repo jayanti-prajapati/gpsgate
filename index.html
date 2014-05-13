@@ -54,6 +54,13 @@
 
   <script>
 
+    var angle = 0;
+    var rotateCompass = function(newAngle){
+      $("#compass").rotate(-angle);
+      $("#compass").rotate(newAngle);
+      angle = newAngle;
+    }
+
     function doLogin() {
       var appId = 5;
       var username = 'team2';
@@ -104,7 +111,10 @@
     </ul>
     <div id="container">
       <img id="compass" src="arrow.png"/>
-  </div>
+    </div>
+    <div class="poi">
+      <img class="compass" src="arrow.png" />
+    </div>
   </div>
 </body>
 </html>
