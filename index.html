@@ -70,6 +70,13 @@
       console.log("UpdateNearbyLocations#{call}")
       GpsGate.Server.Hackathon.GetNearbyLocations().addCallbacks(
         function(response){
+          var img = jQuery('#compass');
+
+          img.empty();
+          img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+');-webkit-transform:rotate('+response[0].heading+'deg)"/>')
+          );
+
+
           var ul = jQuery('#locations');
           ul.empty()
           for (var i = 0; i < response.length; i++) {
@@ -79,7 +86,7 @@
                 .append(jQuery('<p>').html(response[i].name))
                 .append(jQuery('<p>').html(response[i].distance + "m"))
                 .append(jQuery('<p>').html(response[i].heading))
-                .append(jQuery('<img id="small-compass" src="arrow.png" style="-webkit-transform:rotate('+response[i].heading+'deg)"/>'))
+                .append(jQuery('<img id="small-compass" src="arrow.png" style="-ms-transform:rotate('+response[i].heading+');-webkit-transform:rotate('+response[i].heading+'deg)"/>'))
             )
           }
           setTimeout(UpdateNearbyLocations, 1000);
@@ -123,7 +130,7 @@
       <b id="user-lng"></b>
       <b id="user-lat"></b>
     </div>
-
+    <div id="compass"></div>
     <ul id="locations"></ul>
 
 
