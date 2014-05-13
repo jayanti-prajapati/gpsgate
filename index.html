@@ -36,17 +36,6 @@
       var position = data.coords;
       console.log("Got new GEO data", position);
       GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
-      jQuery('#user-heading').html(position.heading);
-      jQuery('#user-speed').html(position.speed + 'm/s');
-      jQuery('#user-lat').html(position.latitude);
-      jQuery('#user-lng').html(position.longitude);
-    }
-
-    var angle = 0;
-    var rotateCompass = function(newAngle){
-      $("#compass").rotate(-angle);
-      $("#compass").rotate(newAngle);
-      angle = newAngle;
     }
 
     function doLogin() {
@@ -72,10 +61,11 @@
         function(response){
           var img = jQuery('#compass');
 
+          var response = response.filter(function(element) { return element.name !== "GpsGate";})
+
           img.empty();
           img.append(jQuery('<img id="big-compass" src="arrow.png" style="-ms-transform:rotate('+response[0].heading+');-webkit-transform:rotate('+response[0].heading+'deg)"/>')
           );
-
 
           var ul = jQuery('#locations');
           ul.empty()
@@ -101,19 +91,8 @@
       start();
 
       // Get some users
-      GpsGate.Server.Hackathon.GetUpdatedUsers().addCallbacks(
-        function(response) {
-          var ul = jQuery('#users');
-          for (var i = 0; i < response.users.length; i++) {
-            ul.append('<li>' + response.users[i].name + '</li>');
-          }
-        },
-        function(error) { }
-      );
 
       UpdateNearbyLocations();
-
-
 
 
     }
@@ -122,13 +101,10 @@
   </script>
 </head>
 <body>
-    <h2>User</h2>
-      <b id="user-heading"></b>
-      <b id="user-speed"></b>
-      <b id="user-lng"></b>
-      <b id="user-lat"></b>
-      <div id="compass"></div>
+
+
     <h2>Locations</h2>
+    <div id="compass"></div>
 
     <ul id="locations"></ul>
 </body>
