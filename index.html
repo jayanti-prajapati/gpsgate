@@ -27,6 +27,7 @@
 
     function start() {
       if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(processGeoData, null, { enableHighAccuracy: true });
         navigator.geolocation.watchPosition(processGeoData, null, { enableHighAccuracy: true });
       }
     }
@@ -36,7 +37,7 @@
       console.log("Got new GEO data", position);
       GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
       jQuery('#user-heading').html(position.heading);
-      jQuery('#user-speed').html(position.speed);
+      jQuery('#user-speed').html(position.speed + 'm/s');
       jQuery('#user-lat').html(position.latitude);
       jQuery('#user-lng').html(position.longitude);
     }
@@ -64,6 +65,28 @@
         );
     }
 
+
+    function UpdateNearbyLocations() {
+      console.log("UpdateNearbyLocations#{call}")
+      GpsGate.Server.Hackathon.GetNearbyLocations().addCallbacks(
+        function(response){
+          var ul = jQuery('#locations');
+          ul.empty()
+          for (var i = 0; i < response.length; i++) {
+
+            ul.append(
+              jQuery('<li>')
+                .append(jQuery('<p>').html(response[i].name))
+                .append(jQuery('<p>').html(response[i].distance))
+                .append(jQuery('<p>').html(response[i].heading))
+                .append(jQuery('<img id="small-compass" src="arrow.png" style="-webkit-transform:rotate('+response[i].heading+'deg)"/>'))
+            )
+          }
+          setTimeout(UpdateNearbyLocations, 1000);
+        }
+      )
+    }
+
     function mainProgram() {
       // do something
       console.log('app.main');
@@ -81,19 +104,18 @@
         function(error) { }
       );
 
+      UpdateNearbyLocations();
 
-      GpsGate.Server.Hackathon.GetNearbyLocations().addCallbacks(
-        function(response){
-          console.log(response);
-        }
-      )
+
+
+
     }
 
     jQuery(document).ready(doLogin);
   </script>
 </head>
 <body>
-  <div>
+
     <div id="user">
       <h2>User</h2>
       <b id="user-heading"></b>
@@ -101,6 +123,8 @@
       <b id="user-lng"></b>
       <b id="user-lat"></b>
     </div>
+
+    <ul id="locations"></ul>
 
     Some UI stuff here...
     <ul id="users">
@@ -123,6 +147,7 @@
     <div class="small-poi">
       <img id="small-compass" src="arrow.png" />
     </div>
-  </div>
+  </ul>
+
 </body>
 </html>
