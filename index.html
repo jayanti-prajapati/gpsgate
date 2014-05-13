@@ -32,7 +32,13 @@
 
     function processGeoData(position) {
       console.debug("got geo data", position);
-      GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
+      GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading).addCallbacks(
+        function(response) {
+          console.debug("Update done!", response)
+        }
+        function(error) { }
+      );
+
     }
 
   </script>
