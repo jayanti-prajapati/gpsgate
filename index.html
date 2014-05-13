@@ -22,6 +22,21 @@
     GpsGate.require('GpsGate.Server.Hackathon');
   </script>
 
+  <script type="text/javascript">
+
+    function start() {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(processGeoData);
+      }
+    }
+
+    function processGeoData(position) {
+      console.debug("got geo data", position);
+      GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
+    }
+
+  </script>
+
   <script>
 
     function doLogin() {
@@ -68,6 +83,7 @@
 </head>
 <body>
   <div>
+    <button onclick="start()">Start</button>
     Some UI stuff here...
     <ul id="users">
     </ul>
