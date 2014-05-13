@@ -77,7 +77,7 @@
             ul.append(
               jQuery('<li>')
                 .append(jQuery('<p>').html(response[i].name))
-                .append(jQuery('<p>').html(response[i].distance))
+                .append(jQuery('<p>').html(response[i].distance + "m"))
                 .append(jQuery('<p>').html(response[i].heading))
                 .append(jQuery('<img id="small-compass" src="arrow.png" style="-webkit-transform:rotate('+response[i].heading+'deg)"/>'))
             )
