@@ -25,38 +25,21 @@
 
   <script type="text/javascript">
 
-
     function start() {
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(processGeoData, null, { enableHighAccuracy: true });
       }
     }
 
-    function processGeoData(position) {
+    function processGeoData(data) {
+      var position = data.coords;
       console.log("Got new GEO data", position);
       GpsGate.Server.Hackathon.UpdatePosition(position.latitude, position.longitude, position.speed, position.heading);
-      GetUpdatedUser();
+      jQuery('#user-heading').html(position.heading);
+      jQuery('#user-speed').html(position.speed);
+      jQuery('#user-lat').html(position.latitude);
+      jQuery('#user-lng').html(position.longitude);
     }
-
-    function GetUpdatedUser() {
-      console.log("GetUpdatedUser#call");
-      GpsGate.Server.Hackathon.GetUpdatedUsers().addCallbacks(
-        function(response) {
-          console.log("GetUpdatedUser#response", response);
-          var ul = jQuery('#users');
-          for (var i = 0; i < response.users.length; i++) {
-            ul.append('<li>' + response.users[i].name + '</li>');
-          }
-        },
-        function(error) { }
-      );
-    }
-
-    start();
-
-  </script>
-
-  <script>
 
     var angle = 0;
     var rotateCompass = function(newAngle){
@@ -85,6 +68,8 @@
       // do something
       console.log('app.main');
 
+      start();
+
       // Get some users
       GpsGate.Server.Hackathon.GetUpdatedUsers().addCallbacks(
         function(response) {
@@ -109,7 +94,14 @@
 </head>
 <body>
   <div>
-    <button onclick="start()">Start</button>
+    <div id="user">
+      <h2>User</h2>
+      <b id="user-heading"></b>
+      <b id="user-speed"></b>
+      <b id="user-lng"></b>
+      <b id="user-lat"></b>
+    </div>
+
     Some UI stuff here...
     <ul id="users">
     </ul>
